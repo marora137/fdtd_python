@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "fdtd_python"
+  site-url: "https://gbeane66.github.io/fdtd_python"
+  description: "A python package to run fdtd simulations"
+  repo-branch: main
+  repo-url: "https://github.com/gbeane66/fdtd_python"
