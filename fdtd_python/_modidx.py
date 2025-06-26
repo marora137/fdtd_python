@@ -5,4 +5,11 @@ d = { 'settings': { 'branch': 'main',
                 'doc_host': 'https://gbeane66.github.io',
                 'git_url': 'https://github.com/gbeane66/fdtd_python',
                 'lib_path': 'fdtd_python'},
-  'syms': {'fdtd_python.core': {'fdtd_python.core.foo': ('core.html#foo', 'fdtd_python/core.py')}}}
+  'syms': { 'fdtd_python.core': {'fdtd_python.core.foo': ('fdtd_python.html#foo', 'fdtd_python/core.py')},
+            'fdtd_python.fdtd_python': { 'fdtd_python.fdtd_python.easeInOutQuad': ( 'fdtd_python.html#easeinoutquad',
+                                                                                    'fdtd_python/fdtd_python.py'),
+                                         'fdtd_python.fdtd_python.fdtd_run': ('fdtd_python.html#fdtd_run', 'fdtd_python/fdtd_python.py'),
+                                         'fdtd_python.fdtd_python.fdtd_settings': ( 'fdtd_python.html#fdtd_settings',
+                                                                                    'fdtd_python/fdtd_python.py'),
+                                         'fdtd_python.fdtd_python.fdtd_settings.__init__': ( 'fdtd_python.html#fdtd_settings.__init__',
+                                                                                             'fdtd_python/fdtd_python.py')}}}
