@@ -1,0 +1,52 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "fdtd_python",
+    "section": "",
+    "text": "If you are new to using nbdev here are some useful pointers to get you started.\n\n\n# make sure fdtd_python package is installed in development mode\n$ pip install -e .\n\n# make changes under nbs/ directory\n# ...\n\n# compile to have changes apply to fdtd_python\n$ nbdev_prepare",
+    "crumbs": [
+      "fdtd_python"
+    ]
+  },
+  {
+    "objectID": "index.html#developer-guide",
+    "href": "index.html#developer-guide",
+    "title": "fdtd_python",
+    "section": "",
+    "text": "If you are new to using nbdev here are some useful pointers to get you started.\n\n\n# make sure fdtd_python package is installed in development mode\n$ pip install -e .\n\n# make changes under nbs/ directory\n# ...\n\n# compile to have changes apply to fdtd_python\n$ nbdev_prepare",
+    "crumbs": [
+      "fdtd_python"
+    ]
+  },
+  {
+    "objectID": "index.html#usage",
+    "href": "index.html#usage",
+    "title": "fdtd_python",
+    "section": "Usage",
+    "text": "Usage\n\nInstallation\nInstall latest from the GitHub repository:\n$ pip install git+https://github.com/gbeane66/fdtd_python.git\nor from conda\n$ conda install -c gbeane66 fdtd_python\nor from pypi\n$ pip install fdtd_python\n\n\nDocumentation\nDocumentation can be found hosted on this GitHub repository’s pages. Additionally you can find package manager specific guidelines on conda and pypi respectively.",
+    "crumbs": [
+      "fdtd_python"
+    ]
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "fdtd_python",
+    "section": "How to use",
+    "text": "How to use\nDefine the refractive index and thickness of the layers in the simulation. The refractive index is defined as a list of floats, and the thickness is defined as a list of floats. The length of the two lists must be equal.\nn = [1.5, 2.5]  # refractive index of the layers\nd = [0.2, 500]  # thickness of the layers in micrometers\nThe fdtd settings class is used to define the simulation settings. The class takes the following parameters: - simulation_time: The total time of the simulation in picoseconds. - simulation_size: The size of the simulation in micrometers. - d: The thickness of the layers in micrometers. - n: The refractive index of the layers.\n\nn = [1.5,2.5]\nd = [0.2,500]\nsettings = fd.fdtd_settings(2500.,16.,d,n)\n\nThe simulation is then run using the function is then run using the function fdtd_run:\nwavelength = 600  # wavelength in micrometers\nN_w = 100  # number of points per wavelength\nsettings = fd.fdtd_settings(2500., 16., d, n)\nfd.fdtd_run(wavelength, N_w, settings)\n\nlength_array, time_array, E_field = fd.fdtd_run(600, 100, settings)\n\n\n\n\n\n\n\n\n\nnp.shape(E_field)\n\n(407, 800)\n\n\n\nimport matplotlib.pyplot as plt\nfig,ax = plt.subplots()\nax.plot(length_array, E_field[:,0], label='E-field at t=0')\nax.plot(length_array, E_field[:,600], label='E-field at t=0')",
+    "crumbs": [
+      "fdtd_python"
+    ]
+  },
+  {
+    "objectID": "fdtd_python.html",
+    "href": "fdtd_python.html",
+    "title": "fdtd_python",
+    "section": "",
+    "text": "source\n\nfdtd_settings\n\n fdtd_settings (simulation_size, simulation_time, thicknesses,\n                refractive_indices)\n\nInitialize self. See help(type(self)) for accurate signature.\n\n\n\n\nDetails\n\n\n\n\nsimulation_size\ndistance in microns (float)\n\n\nsimulation_time\ntime in ps (#float)\n\n\nthicknesses\narray\n\n\nrefractive_indices\narray\n\n\n\n\nsource\n\n\neaseInOutQuad\n\n easeInOutQuad (t_in)\n\n\nsource\n\n\nfdtd_run\n\n fdtd_run (wavelength, N_w, settings)\n\nwavelength is in microns Let’s have a go at making this work with units!!! N_w: points per wavelength",
+    "crumbs": [
+      "fdtd_python"
+    ]
+  }
+]
