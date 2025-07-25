@@ -55,13 +55,15 @@ find package manager specific guidelines on
 ## How to use
 
 Define the refractive index and thickness of the layers in the
-simulation. The refractive index is defined as a list of floats, and the
+simulation. The refractive index is defined as a list of lists of coefficients to the sellmeier equation, and the
 thickness is defined as a list of floats. The length of the two lists
 must be equal.
 
 ``` python
-n = [1.5, 2.5]  # refractive index of the layers
-d = [0.2, 500]  # thickness of the layers in micrometers
+SiO2 = [0, 0.6961663, 0.0684043, 0, 0.4079426, 0.1162414, 0, 0.8974794, 9.896161, 0]
+AlO3 = [0, 1.4313493, 0.0726631, 0, 0.65054713, 0.1193242, 0, 5.3414021, 18.028251, 0]
+n = [AlO3,SiO2]
+d = [10,90]
 ```
 
 The fdtd settings class is used to define the simulation settings. The
@@ -71,9 +73,11 @@ the simulation in micrometers. - `d`: The thickness of the layers in
 micrometers. - `n`: The refractive index of the layers.
 
 ``` python
-n = [1.5,2.5]
-d = [0.2,500]
-settings = fd.fdtd_settings(2500.,16.,d,n)
+SiO2 = [0, 0.6961663, 0.0684043, 0, 0.4079426, 0.1162414, 0, 0.8974794, 9.896161, 0]
+AlO3 = [0, 1.4313493, 0.0726631, 0, 0.65054713, 0.1193242, 0, 5.3414021, 18.028251, 0]
+n = [AlO3,SiO2]
+d = [10,90]
+settings = fd.fdtd_settings(200.,1.6,d,n)
 ```
 
 The simulation is then run using the function is then run using the
@@ -81,29 +85,8 @@ function
 [`fdtd_run`](https://gbeane66.github.io/fdtd_python/fdtd_python.html#fdtd_run):
 
 ``` python
-wavelength = 600  # wavelength in micrometers
-N_w = 100  # number of points per wavelength
-settings = fd.fdtd_settings(2500., 16., d, n)
+wavelength = 3  # wavelength in micrometers
+N_w = 20  # number of points per wavelength
+settings = fd.fdtd_settings(200., 1.6, d, n)
 fd.fdtd_run(wavelength, N_w, settings)
 ```
-
-``` python
-length_array, time_array, E_field = fd.fdtd_run(600, 100, settings)
-```
-
-![](index_files/figure-commonmark/cell-3-output-1.png)
-
-``` python
-np.shape(E_field)
-```
-
-    (407, 800)
-
-``` python
-import matplotlib.pyplot as plt
-fig,ax = plt.subplots()
-ax.plot(length_array, E_field[:,0], label='E-field at t=0')
-ax.plot(length_array, E_field[:,600], label='E-field at t=0')
-```
-
-![](index_files/figure-commonmark/cell-5-output-1.png)

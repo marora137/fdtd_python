@@ -44,6 +44,7 @@ def easeInOutQuad(t_in):
 # %% ../nbs/fdtd_python.ipynb 5
 def fit_refractive_index(l_mat, n_mat_exp, poles, repeat=10):
     """
+    VERY BROKEN NOW
     Fits refractive index data to a given amount of lorentzian susceptibility terms (sellmeier equations when no k). Returns a list of coefficients to be used in the fdtd_settings for that material
     Inputs
     l_mat: array of wavelengths in microns
@@ -65,12 +66,12 @@ def fit_refractive_index(l_mat, n_mat_exp, poles, repeat=10):
 
         # Adding parameters for lorentzian terms and fixing the imaginary part to 0 if there are no k values in the data
         for p in range(poles):
-            params.add(f'eps_l_{p}',value=1e5*np.random.random(),min=0)
+            params.add(f'eps_l_{p}',value=1e1*np.random.random())
             params.add(f'omega_0_{p}',value=1e1*np.random.random())
             if np.all(np.isreal(n_mat_exp)):
                 params.add(f'delta_{p}',value=0.0,vary=False)
             else:
-                params.add(f'delta_{p}',value=10.0*np.random.random(),vary=True,min=0)
+                params.add(f'delta_{p}',value=10.0*np.random.random(),vary=True)
         # Defining the residual to minimize using the lorentzian terms and the refractive index from data
         def residual(params,omega_exp,n_exp):
             """Function to be minimised for fit"""
@@ -97,8 +98,8 @@ def fit_refractive_index(l_mat, n_mat_exp, poles, repeat=10):
     coeffs = result.params.valuesdict()
     coeffs = list(coeffs.values())
     # Convert to sellmeier like coeffs
-    for idx in range((len(coeffs)-1)//3):
-        temp = coeffs[3*idx+2]
+    for idx in range(0,(len(coeffs)-1)//3):
+        temp = coeffs[3*idx+2] # omega_0
         coeffs[3*idx+2] = 2*np.pi*c/coeffs[3*idx+2] # Convert omega_0 to C
         coeffs[3*idx+3] = 2*coeffs[3*idx+3]*coeffs[3*idx+2]/temp # Convert delta to D
     report_fit(result) # To print an lmfit fit report
